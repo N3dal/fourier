@@ -60,29 +60,50 @@ def idft(sequence: list):
     N = len(sequence)
 
     # define x(n):
-    def x(n: int): return (1/N) * sum(sequence_value*exp((1j*2*pi*n*i)/N)
+    def x(k: int): return (1/N) * sum(sequence_value*exp((1j*2*pi*k*i)/N)
                                       for i, sequence_value in enumerate(sequence))
 
-    return [x(n) for n in range(N)]
+    return [x(k) for k in range(N)]
+
+
+def print_sequence(sequence: list, series_type: str):
+    """simple function to print the sequence that we get from either,
+    'dft' or 'idft' function in nice way in terminal.
+    and choose the right chars to represents the right series."""
+
+    SERIES_TYPES = (
+        "dft", "idft",  # dft types.
+    )
+
+    # guard-conditions.
+    if series_type not in SERIES_TYPES:
+        print("this series type not exist!!.")
+        return None
+
+    if series_type == "dft":
+        series_symbol = "x̄"
+
+    elif series_type == "idft":
+        series_symbol = "x"
+
+    print(f"{series_symbol}(k)\t Real\t Imag")
+    for index, item in enumerate(sequence):
+        print(f"{series_symbol}({index})\t  ", end='')
+        print(
+            f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
+
+    return None
 
 
 def main():
-    l = dft([*range(20), 2j])
+    l = dft([*range(3), 2j])
     il = idft(l)
 
-    print(f"Kth\t Real\t Imag")
-    for k, item in enumerate(l):
-        print(f"X({k})\t  ", end='')
-        print(
-            f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
+    print_sequence(l, "dft")
 
     print("#" * 25)
 
-    print(f"Kth\t Real\t Imag")
-    for k, item in enumerate(il):
-        print(f"X({k})\t  ", end='')
-        print(
-            f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
+    print_sequence(il, "idft")
 
 
 if __name__ == "__main__":
