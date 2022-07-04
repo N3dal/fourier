@@ -57,12 +57,29 @@ def dft(sequence: list):
 def idft(sequence: list):
     """calculate inverse-discrete-fourier-transform for given sequence."""
 
+    N = len(sequence)
+
+    # define x(n):
+    def x(n: int): return (1/N) * sum(sequence_value*exp((1j*2*pi*n*i)/N)
+                                      for i, sequence_value in enumerate(sequence))
+
+    return [x(n) for n in range(N)]
+
 
 def main():
-    l = dft([*range(1, 5)])
+    l = dft([*range(20), 2j])
+    il = idft(l)
 
     print(f"Kth\t Real\t Imag")
     for k, item in enumerate(l):
+        print(f"X({k})\t  ", end='')
+        print(
+            f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
+
+    print("#" * 25)
+
+    print(f"Kth\t Real\t Imag")
+    for k, item in enumerate(il):
         print(f"X({k})\t  ", end='')
         print(
             f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
