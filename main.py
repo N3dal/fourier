@@ -45,13 +45,17 @@ clear()
 def dft(sequence: list):
     """calculate discrete-fourier-transform for given sequence."""
 
-    n = len(sequence)
+    N = len(sequence)
 
     # define x(k):
-    def x(k: int): return sum(sequence_value*exp((-1j*2*pi*k*i)/n)
+    def x(k: int): return sum(sequence_value*exp((-1j*2*pi*k*i)/N)
                               for i, sequence_value in enumerate(sequence))
 
-    return [x(k) for k in range(n)]
+    return [x(k) for k in range(N)]
+
+
+def idft(sequence: list):
+    """calculate inverse-discrete-fourier-transform for given sequence."""
 
 
 def main():
