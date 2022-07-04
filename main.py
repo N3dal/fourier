@@ -16,7 +16,9 @@
 
 from os import system
 from os import name as OS_NAME
-from math import (pi, sqrt, sin, cos, exp)
+from math import (pi, sqrt, sin, cos)
+from cmath import exp  # the normal exp from math module will not work.
+
 
 # todo: make the script work from the command line directly, by passing args.
 
@@ -40,8 +42,26 @@ def clear():
 clear()
 
 
+def dft(sequence: list):
+    """calculate discrete-fourier-transform for given sequence."""
+
+    n = len(sequence)
+
+    # define x(k):
+    def x(k: int): return sum(sequence_value*exp((-1j*2*pi*k*i)/n)
+                              for i, sequence_value in enumerate(sequence))
+
+    return [x(k) for k in range(n)]
+
+
 def main():
-    pass
+    l = dft([*range(1, 5)])
+
+    print(f"Kth\t Real\t Imag")
+    for k, item in enumerate(l):
+        print(f"X({k})\t  ", end='')
+        print(
+            f"{str(round(item.real)).center(2)}\t {(str(round(item.imag))+'j').center(3)}")
 
 
 if __name__ == "__main__":
