@@ -24,6 +24,15 @@ from utils import *
 clear()
 
 
+def fft():
+    """
+        :ARGS:
+        :RETURNS:
+        :INFO:
+    """
+    pass
+
+
 def dft(sequence: list):
     """
         :ARGS:
