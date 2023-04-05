@@ -14,36 +14,30 @@
 # -----------------------------------------------------------------
 
 
-from os import system
-from os import name as OS_NAME
 from math import (pi, sqrt, sin, cos)
 from cmath import exp  # the normal exp from math module will not work.
-
+from utils import *
 
 # todo: make the script work from the command line directly, by passing args.
-
-
-def clear():
-    """wipe terminal screen."""
-
-    if OS_NAME == "posix":
-        # for *nix machines.
-        system("clear")
-
-    elif OS_NAME == "windows":
-        system("cls")
-
-    else:
-        # for other system in the world
-        # system("your-os-clear-command")
-        pass
 
 
 clear()
 
 
 def dft(sequence: list):
-    """calculate discrete-fourier-transform for given sequence."""
+    """
+        :ARGS:
+            sequence:list => the discrete sequence;
+
+        :RETURNS:
+            return list;
+
+        :INFO:
+            calculate discrete-fourier-transform for given sequence.
+    """
+
+    assert isinstance(
+        sequence, list), f"the given sequence is not 'list' type its '{type(sequence)}'"
 
     N = len(sequence)
 
@@ -55,7 +49,19 @@ def dft(sequence: list):
 
 
 def idft(sequence: list):
-    """calculate inverse-discrete-fourier-transform for given sequence."""
+    """
+        :ARGS:
+            sequence:list => the dft discrete sequence;
+
+        :RETURNS:
+            return list;
+
+        :INFO:
+            calculate inverse-discrete-fourier-transform for given sequence.
+        """
+
+    assert isinstance(
+        sequence, list), f"the given sequence is not 'list' type its '{type(sequence)}'"
 
     N = len(sequence)
 
@@ -67,9 +73,26 @@ def idft(sequence: list):
 
 
 def print_sequence(sequence: list, series_type: str):
-    """simple function to print the sequence that we get from either,
-    'dft' or 'idft' function in nice way in terminal.
-    and choose the right chars to represents the right series."""
+    """
+        :ARGS:
+            sequence:list => the discrete sequence;
+            series_type:str => the series can be either 'dft' or 'idft'.
+
+        :RETURNS:
+            return None;
+
+        :INFO:
+            print the sequence that we get from either,
+            'dft' or 'idft' function in nice way in terminal.
+            and choose the right chars to represents the right series.
+
+        """
+
+    assert isinstance(
+        sequence, list), f"the given sequence is not 'list' type its '{type(sequence)}'"
+
+    assert isinstance(
+        series_type, str), f"the given series-type is not 'str' type its '{type(sequence)}'"
 
     SERIES_TYPES = (
         "dft", "idft",  # dft types.
